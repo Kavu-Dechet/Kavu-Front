@@ -7,20 +7,62 @@ L.tileLayer(
   }
 ).addTo(map);
 
-function placer_dechet(dechet) {
-  // Marker with custom icon
-  L.marker(dechet, {
-    icon: L.icon({
-      iconUrl: './img/trash-solid.svg',
-      iconSize: [20, 20]
-    })
-  }).addTo(map);
-}
+var dechetIcon = L.icon({
+  iconUrl: './img/trash-solid.svg',
+  iconSize: [15, 15],
+  popupAnchor: [0, -28]
+});
 
-const dechets = [
+const save_dechets = [
   [-12.809645, 45.130741],
   [-12.9025, 45.07611],
   [-12.78234, 45.22878],
 ]
 
-dechets.forEach(element => placer_dechet(element));
+var dechets = {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "geometry": {
+          "type": "Point",
+          "coordinates": [45.130741,-12.809645]
+        },
+        "type": "Feature",
+        "properties": {
+          "popupContent": "Mayotte"
+        },
+        "id": 57
+      },
+      {
+        "geometry": {
+          "type": "Point",
+          "coordinates": [45.07611,-12.9025]
+        },
+        "type": "Feature",
+        "properties": {
+          "popupContent": "Bouéni"
+        },
+        "id": 57
+      },
+      {
+        "geometry": {
+          "type": "Point",
+          "coordinates": [45.22878,-12.78234]
+        },
+        "type": "Feature",
+        "properties": {
+          "popupContent": "Mamoudzou"
+        },
+        "id": 57
+      },
+    ]
+};
+
+new L.GeoJSON(dechets,
+  {
+    pointToLayer: function (feature, latlng) {
+      return L.marker(latlng, {icon: dechetIcon});
+  }
+}).addTo(map);
+
+//dechets.forEach(element => placer_dechet(element));
