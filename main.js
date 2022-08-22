@@ -6,3 +6,21 @@ L.tileLayer(
     maxZoom: 22
   }
 ).addTo(map);
+
+function placer_dechet(dechet) {
+  // Marker with custom icon
+  L.marker(dechet, {
+    icon: L.icon({
+      iconUrl: './img/trash-solid.svg',
+      iconSize: [20, 20]
+    })
+  }).addTo(map);
+}
+
+const dechets = [
+  [-12.809645, 45.130741],
+  [-12.9025, 45.07611],
+  [-12.78234, 45.22878],
+]
+
+dechets.forEach(element => placer_dechet(element));
