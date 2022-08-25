@@ -61,3 +61,26 @@ new L.GeoJSON(dechets,
       return L.marker(latlng, {icon: dechetIcon});
   }
 }).addTo(map);
+
+$(document).ready(function(){
+    $.ajax({
+        //L'URL de la requête
+        url: "http://localhost:5000/geodechets",
+
+        //La méthode d'envoi (type de requête)
+        method: "GET",
+
+        //Le format de réponse attendu
+        dataType : "text",
+        // allow crossorigin
+        crossDomain: true,
+        success: function (response) {
+            alert(response);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          alert(xhr.status);
+          alert(thrownError);
+        }
+      });
+
+});
