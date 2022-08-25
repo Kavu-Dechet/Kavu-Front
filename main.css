@@ -1,1 +1,17 @@
-#map { height: 600px; }
+
+.columns {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+#sidebar{
+  flex: 20%;
+}
+#map {
+  height: 600px;
+  flex: 60%;
+}
+#tableau-de-bord{
+  flex: 10%;
+}
