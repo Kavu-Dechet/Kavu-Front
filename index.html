@@ -1,6 +1,8 @@
+<!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="sidebar.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
    crossorigin=""/>
@@ -11,7 +13,55 @@
 
   </head>
   <body>
+
+    <!-- Sidebar -->
+    <div class="columns">
+
+      <div id="sidebar">
+        <div class="inner">
+
+
+          <!-- Menu -->
+            <nav id="menu">
+              <header class="major">
+                <h2>Kavu Déchet</h2>
+              </header>
+              <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="#">Ressources</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="mentions_legales.html">Mentions légales</a></li>
+                <!-- <li><a href="#">Amet Lacinia</a></li> -->
+              </ul>
+            </nav>
+
+
+
+          <!-- Footer -->
+            <footer id="footer">
+              <p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p> <!-- TODO : voir les licences !!! -->
+            </footer>
+
+        </div>
+      </div>
+
+
+
+
      <div id="map"></div>
+
+   <div  id="tableau-de-bord">
+     <p>Tableau de Bord</p>
+    <p>
+      <ul>
+        <li>5 déchets</li>
+        <li>3 tortues</li>
+      </ul>
+    </p>
+
+   </div>
+ </div>
+
   </body>
   <script src="main.js"></script>
 </html>
