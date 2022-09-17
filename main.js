@@ -15,67 +15,27 @@ var dechetIcon = L.icon({
   popupAnchor: [0, -28]
 });
 
-
-var dechets = {
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "geometry": {
-          "type": "Point",
-          "coordinates": [45.130741,-12.809645]
-        },
-        "type": "Feature",
-        "properties": {
-          "popupContent": "Mayotte"
-        },
-        "id": 57
-      },
-      {
-        "geometry": {
-          "type": "Point",
-          "coordinates": [45.07611,-12.9025]
-        },
-        "type": "Feature",
-        "properties": {
-          "popupContent": "Bouéni"
-        },
-        "id": 57
-      },
-      {
-        "geometry": {
-          "type": "Point",
-          "coordinates": [45.22878,-12.78234]
-        },
-        "type": "Feature",
-        "properties": {
-          "popupContent": "Mamoudzou"
-        },
-        "id": 57
-      },
-    ]
-};
-
-new L.GeoJSON(dechets,
-  {
-    pointToLayer: function (feature, latlng) {
-      return L.marker(latlng, {icon: dechetIcon});
-  }
-}).addTo(map);
-
-$(document).ready(function(){
+$(document).ready(function() {
+  var debug = ""
     $.ajax({
         //L'URL de la requête
-        url: "http://localhost:5000/geodechets",
+        url: "http://localhost:5000/geodechets" ,
 
         //La méthode d'envoi (type de requête)
         method: "GET",
 
         //Le format de réponse attendu
-        dataType : "text",
+        dataType : "json",
         // allow crossorigin
         crossDomain: true,
         success: function (response) {
-            alert(response);
+          console.debug(response);
+          new L.GeoJSON(response,
+            {
+              pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: dechetIcon});
+            }
+          }).addTo(map);
         },
         error: function (xhr, ajaxOptions, thrownError) {
           alert(xhr.status);
