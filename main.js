@@ -19,7 +19,7 @@ $(document).ready(function() {
   var debug = ""
     $.ajax({
         //L'URL de la requête
-        url: "http://localhost:5000/geodechets" ,
+        url: "http://localhost:5000/geodechets",
 
         //La méthode d'envoi (type de requête)
         method: "GET",
@@ -36,6 +36,7 @@ $(document).ready(function() {
                 return L.marker(latlng, {icon: dechetIcon});
             }
           }).addTo(map);
+          maj_tableau_bord(response);
         },
         error: function (xhr, ajaxOptions, thrownError) {
           alert(xhr.status);
@@ -44,3 +45,22 @@ $(document).ready(function() {
       });
 
 });
+
+function maj_tableau_bord(dechets) {
+  count_vhu = 0;
+  count_d3e = 0;
+
+  dechets["features"].forEach((dechet, i) => {
+    categorie = dechet["properties"]["categorie"]
+    if ( categorie == "VHU") {
+      count_vhu += 1
+    }
+    if ( categorie == "D3E") {
+      count_d3e += 1
+    }
+  });
+    document.getElementById("count_d3e").innerHTML = count_d3e;
+    document.getElementById("count_vhu").innerHTML = count_vhu;
+
+  console.log(count_vhu);
+}
