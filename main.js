@@ -9,10 +9,31 @@ L.tileLayer(
   }
 ).addTo(map);
 
+const ICON_SIZE = [15, 15];
+const ICON_POP_UP = [0, -28]
 var dechetIcon = L.icon({
   iconUrl: './img/trash-solid.svg',
-  iconSize: [15, 15],
-  popupAnchor: [0, -28]
+  iconSize: ICON_SIZE,
+  popupAnchor: ICON_POP_UP
+});
+
+var vhuIcon = L.icon({
+  iconUrl: './img/car-solid.svg',
+  iconSize: ICON_SIZE,
+  popupAnchor: ICON_POP_UP
+});
+
+var d3eIcon = L.icon({
+  iconUrl: './img/charging-station-solid.svg',
+  iconSize: ICON_SIZE,
+  popupAnchor: ICON_POP_UP
+});
+
+var cityL = L.icon({
+    iconUrl: './img/charging-station-solid.svg',
+    iconSize:     [58, 58],
+    iconAnchor:   [22, 22],
+    popupAnchor:  [-3, -26]
 });
 
 $(document).ready(function() {
@@ -30,21 +51,42 @@ $(document).ready(function() {
         crossDomain: true,
         success: function (response) {
           console.debug(response);
-          new L.GeoJSON(response,
-            {
-              pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {icon: dechetIcon});
-            }
+          new L.GeoJSON(response,{
+            pointToLayer:pointToLayer
           }).addTo(map);
           maj_tableau_bord(response);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-          alert(xhr.status);
-          alert(thrownError);
+          alert("Connection API impossible");
+          console.log(thrownError);
         }
       });
 
 });
+
+function pointToLayer(feature, latlng) {
+    console.log("bite");
+    var lat = feature.geometry.coordinates[0];
+    var lon = feature.geometry.coordinates[1];
+    var popupContent;
+    var marker;
+    switch(feature.properties.categorie) {
+        case "D3E":
+            marker = L.marker(latlng, {icon: d3eIcon}).addTo(map);
+            popupContent = "D3E"
+            break;
+        case "VUH":
+            marker = L.marker(latlng, {icon: vhuIcon}).addTo(map);
+            popupContent = "Voiture"
+            break;
+        default:
+            marker = L.marker(latlng, {icon: dechetIcon}).addTo(map);
+            popupContent = "Inconnu"
+    }
+
+    marker.bindPopup(popupContent);
+}
+
 
 function maj_tableau_bord(dechets) {
   count_vhu = 0;
