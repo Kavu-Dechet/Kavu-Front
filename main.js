@@ -9,33 +9,10 @@ L.tileLayer(
   }
 ).addTo(map);
 
-const ICON_SIZE = [15, 15];
-const ICON_POP_UP = [0, -28]
-var dechetIcon = L.icon({
-  iconUrl: './img/trash-solid.svg',
-  iconSize: ICON_SIZE,
-  popupAnchor: ICON_POP_UP
-});
 
-var vhuIcon = L.icon({
-  iconUrl: './img/car-solid.svg',
-  iconSize: ICON_SIZE,
-  popupAnchor: ICON_POP_UP
-});
-
-var d3eIcon = L.icon({
-  iconUrl: './img/charging-station-solid.svg',
-  iconSize: ICON_SIZE,
-  popupAnchor: ICON_POP_UP
-});
-
-var cityL = L.icon({
-    iconUrl: './img/charging-station-solid.svg',
-    iconSize:     [58, 58],
-    iconAnchor:   [22, 22],
-    popupAnchor:  [-3, -26]
-});
-
+/**
+ * Requêtes les déchets à l'API
+ */
 $(document).ready(function() {
   var debug = ""
     $.ajax({
@@ -64,10 +41,11 @@ $(document).ready(function() {
 
 });
 
+/**
+ * Ajoutes les icones des déchets (selon la catégorie)
+ * @param {json} feature - Le déchet (feature geojson)
+ */
 function pointToLayer(feature, latlng) {
-    console.log("bite");
-    var lat = feature.geometry.coordinates[0];
-    var lon = feature.geometry.coordinates[1];
     var popupContent;
     var marker;
     switch(feature.properties.categorie) {
@@ -87,7 +65,10 @@ function pointToLayer(feature, latlng) {
     marker.bindPopup(popupContent);
 }
 
-
+/**
+ * Met à jour les métriques du tableau de bord
+ * @param {geojson} dechets - Les déchets à compter
+ */
 function maj_tableau_bord(dechets) {
   count_vhu = 0;
   count_d3e = 0;
@@ -106,3 +87,27 @@ function maj_tableau_bord(dechets) {
 
   console.log(count_vhu);
 }
+
+// ***************************************************************************
+// CONSTANTES LIEES à L'AFFICHAGE
+// ***************************************************************************
+
+const ICON_SIZE = [15, 15];
+const ICON_POP_UP = [0, -28]
+var dechetIcon = L.icon({
+  iconUrl: './img/trash-solid.svg',
+  iconSize: ICON_SIZE,
+  popupAnchor: ICON_POP_UP
+});
+
+var vhuIcon = L.icon({
+  iconUrl: './img/car-solid.svg',
+  iconSize: ICON_SIZE,
+  popupAnchor: ICON_POP_UP
+});
+
+var d3eIcon = L.icon({
+  iconUrl: './img/charging-station-solid.svg',
+  iconSize: ICON_SIZE,
+  popupAnchor: ICON_POP_UP
+});
