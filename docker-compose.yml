@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  kavu_website:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: kavu-website
+    ports:
+      - "8008:80"
