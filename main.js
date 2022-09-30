@@ -1,4 +1,6 @@
 const accessToken = 'T9AXpuzRABgCTPv1ZobtztZ7ODNt5WfPuUAXi7IOA4vZuYiBTDCwtcJD6qYByT9U';
+const DEV_MODE = false;
+
 // Definit la zone de mayotte et le zoom approprié
 const map = L.map('map').setView([-12.809645, 45.130741], 11);
 // Importation du fond de carte Jawgmap
@@ -17,7 +19,7 @@ $(document).ready(function() {
   var debug = ""
     $.ajax({
         //L'URL de la requête
-        url: "http://localhost:5000/geodechets",
+        url: endpoint_url(),
 
         //La méthode d'envoi (type de requête)
         method: "GET",
@@ -46,20 +48,24 @@ $(document).ready(function() {
  * @param {json} feature - Le déchet (feature geojson)
  */
 function pointToLayer(feature, latlng) {
-    var popupContent;
+    var popupContent = feature.id + ": ";
     var marker;
     switch(feature.properties.categorie) {
         case "D3E":
             marker = L.marker(latlng, {icon: d3eIcon}).addTo(map);
-            popupContent = "D3E"
+            popupContent += "D3E"
             break;
         case "VUH":
             marker = L.marker(latlng, {icon: vhuIcon}).addTo(map);
-            popupContent = "Voiture"
+            popupContent += "Voiture"
+            break;
+        case "green":
+            marker = L.marker(latlng, {icon: vhuIcon}).addTo(map);
+            popupContent += "Végétation"
             break;
         default:
             marker = L.marker(latlng, {icon: dechetIcon}).addTo(map);
-            popupContent = "Inconnu"
+            popupContent += "Inconnu"
     }
 
     marker.bindPopup(popupContent);
@@ -72,6 +78,7 @@ function pointToLayer(feature, latlng) {
 function maj_tableau_bord(dechets) {
   count_vhu = 0;
   count_d3e = 0;
+  count_green = 0;
 
   dechets["features"].forEach((dechet, i) => {
     categorie = dechet["properties"]["categorie"]
@@ -81,12 +88,27 @@ function maj_tableau_bord(dechets) {
     if ( categorie == "D3E") {
       count_d3e += 1
     }
+    if ( categorie == "green") {
+      count_green += 1
+    }
   });
     document.getElementById("count_d3e").innerHTML = count_d3e;
     document.getElementById("count_vhu").innerHTML = count_vhu;
-
-  console.log(count_vhu);
+    document.getElementById("count_green").innerHTML = count_green;
 }
+
+/**
+ * Choisit l'url du backend (hack dev/prod)
+ */
+function endpoint_url() {
+  if (DEV_MODE) {
+    return "http://localhost:5000/geodechets"
+  }
+  else {
+    return "http://51.68.90.188:5500/geodechets"
+  }
+}
+
 
 // ***************************************************************************
 // CONSTANTES LIEES à L'AFFICHAGE
@@ -108,6 +130,12 @@ var vhuIcon = L.icon({
 
 var d3eIcon = L.icon({
   iconUrl: './img/charging-station-solid.svg',
+  iconSize: ICON_SIZE,
+  popupAnchor: ICON_POP_UP
+});
+
+var verdureIcon = L.icon({
+  iconUrl: './img/leaf-solid.svg',
   iconSize: ICON_SIZE,
   popupAnchor: ICON_POP_UP
 });
