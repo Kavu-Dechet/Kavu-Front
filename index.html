@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-   integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-   crossorigin=""/>
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-  integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-  crossorigin=""></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  </head>
-  <body>
 
-    <!-- Sidebar -->
-    <div class="columns">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="sidebar.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+  <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+  <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
 
-      <div id="sidebar">
-        <div class="inner">
+<body>
 
+  <!-- Sidebar -->
+  <div class="columns">
 
-          <!-- Menu -->
-            <nav id="menu">
-              <header class="major">
-                <h2>Kavu Déchet</h2>
-              </header>
-              <ul>
-                <li><a href="index.html">Accueil</a></li>
-                <li><a href="#">Ressources</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="mentions_legales.html">Mentions légales</a></li>
-                <!-- <li><a href="#">Amet Lacinia</a></li> -->
-              </ul>
-            </nav>
+    <div id="sidebar">
+      <div class="inner">
 
 
+        <!-- Menu -->
+        <nav id="menu">
+          <header class="major">
+            <h2>Kavu Déchet</h2>
+          </header>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="#">Ressources</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="mentions_legales.html">Mentions légales</a></li>
+            <!-- <li><a href="#">Amet Lacinia</a></li> -->
+          </ul>
+        </nav>
 
-          <!-- Footer -->
-            <footer id="footer">
-              <p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p> <!-- TODO : voir les licences !!! -->
-            </footer>
 
-        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+          <p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p> <!-- TODO : voir les licences !!! -->
+        </footer>
+
       </div>
+    </div>
 
 
 
 
-     <div id="map"></div>
+    <div id="map"></div>
 
-   <div  id="tableau-de-bord">
-     <p>Tableau de Bord</p>
-    <p>
+    <div id="tableau-de-bord">
+      <p>Tableau de Bord</p>
+      <p>
       <ul>
         <li><span id="count_d3e"></span> D3E</li>
         <li><span id="count_vhu"></span> VHU</li>
         <li><span id="count_green"></span> Végétation</li>
       </ul>
-    </p>
-   </div>
- </div>
+      </p>
+    </div>
+  </div>
 
-  </body>
-  <script src="main.js"></script>
+</body>
+<script src="main.js"></script>
+
 </html>

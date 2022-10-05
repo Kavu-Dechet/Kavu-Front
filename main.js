@@ -82,15 +82,16 @@ function maj_tableau_bord(dechets) {
 
   dechets["features"].forEach((dechet, i) => {
     categorie = dechet["properties"]["categorie"]
-    if ( categorie == "VHU") {
+    if ( categorie == "car") {
       count_vhu += 1
     }
-    if ( categorie == "D3E") {
+    if ( categorie == "d3e") {
       count_d3e += 1
     }
     if ( categorie == "green") {
       count_green += 1
     }
+    // TODO: categorie : domestic ; plastic
   });
     document.getElementById("count_d3e").innerHTML = count_d3e;
     document.getElementById("count_vhu").innerHTML = count_vhu;
