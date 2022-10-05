@@ -60,7 +60,7 @@ function pointToLayer(feature, latlng) {
             popupContent += "Voiture"
             break;
         case "green":
-            marker = L.marker(latlng, {icon: vhuIcon}).addTo(map);
+            marker = L.marker(latlng, {icon: verdureIcon}).addTo(map);
             popupContent += "Végétation"
             break;
         default:
