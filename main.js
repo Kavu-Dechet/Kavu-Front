@@ -1,3 +1,4 @@
+import { CATEGORIES } from './properties.js'
 const accessToken = 'T9AXpuzRABgCTPv1ZobtztZ7ODNt5WfPuUAXi7IOA4vZuYiBTDCwtcJD6qYByT9U';
 const DEV_MODE = false;
 
@@ -51,17 +52,17 @@ function pointToLayer(feature, latlng) {
     var popupContent = feature.id + ": ";
     var marker;
     switch(feature.properties.categorie) {
-        case "D3E":
+        case CATEGORIES[2]: // d3e
             marker = L.marker(latlng, {icon: d3eIcon}).addTo(map);
             popupContent += "D3E"
             break;
-        case "VUH":
+        case CATEGORIES[4]: // voiture
             marker = L.marker(latlng, {icon: vhuIcon}).addTo(map);
             popupContent += "Voiture"
             break;
-        case "green":
+        case CATEGORIES[3]: // vert
             marker = L.marker(latlng, {icon: verdureIcon}).addTo(map);
-            popupContent += "Végétation"
+            popupContent += "Déchet vert"
             break;
         default:
             marker = L.marker(latlng, {icon: dechetIcon}).addTo(map);
@@ -82,13 +83,13 @@ function maj_tableau_bord(dechets) {
 
   dechets["features"].forEach((dechet, i) => {
     categorie = dechet["properties"]["categorie"]
-    if ( categorie == "car") {
+    if ( categorie == CATEGORIES[4]) {
       count_vhu += 1
     }
-    if ( categorie == "d3e") {
+    if ( categorie == CATEGORIES[2]) {
       count_d3e += 1
     }
-    if ( categorie == "green") {
+    if ( categorie == CATEGORIES[3]) {
       count_green += 1
     }
     // TODO: categorie : domestic ; plastic

@@ -1,0 +1,11 @@
+static CATEGORIES = ["encboisplas",
+            "encfer",
+            "d3e",
+            "vert",
+            "voiture",
+            "menager",
+            "batterie",
+            "pneus",
+            "autre",
+            "danger",
+            "urgence"];
