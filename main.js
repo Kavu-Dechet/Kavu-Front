@@ -1,4 +1,3 @@
-import { CATEGORIES } from './properties.js'
 const accessToken = 'T9AXpuzRABgCTPv1ZobtztZ7ODNt5WfPuUAXi7IOA4vZuYiBTDCwtcJD6qYByT9U';
 const DEV_MODE = false;
 
@@ -141,3 +140,18 @@ var verdureIcon = L.icon({
   iconSize: ICON_SIZE,
   popupAnchor: ICON_POP_UP
 });
+
+// ***************************************************************************
+// CONSTANTES catégorie
+// ***************************************************************************
+const CATEGORIES = ["encboisplas",
+            "encfer",
+            "d3e",
+            "vert",
+            "voiture",
+            "menager",
+            "batterie",
+            "pneus",
+            "autre",
+            "danger",
+            "urgence"];
