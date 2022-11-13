@@ -25,7 +25,8 @@ $(document).ready(function() {
         method: "GET",
 
         //Le format de réponse attendu
-        dataType : "jsonp",
+        dataType : "json",
+        headers: {  'Access-Control-Allow-Origin': '*' },
         // allow crossorigin
         crossDomain: true,
         success: function (response) {
