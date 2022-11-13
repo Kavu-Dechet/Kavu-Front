@@ -26,7 +26,7 @@ $(document).ready(function() {
 
         //Le format de réponse attendu
         dataType : "json",
-        headers: {  'Access-Control-Allow-Origin': 'http://51.68.90.188:5500' },
+        headers: {  'Access-Control-Allow-Origin': ' https://51.68.90.188:5500/geodechets' },
         // allow crossorigin
         crossDomain: true,
         success: function (response) {
