@@ -6,12 +6,12 @@
   width: 100%;
 }
 #sidebar{
-  flex: 20%;
+  flex: 15%;
 }
 #map {
-  height: 600px;
+  height: 800px;
   flex: 60%;
 }
 #tableau-de-bord{
-  flex: 10%;
+  flex: 18%;
 }
