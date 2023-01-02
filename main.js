@@ -1,6 +1,8 @@
 const accessToken = 'T9AXpuzRABgCTPv1ZobtztZ7ODNt5WfPuUAXi7IOA4vZuYiBTDCwtcJD6qYByT9U';
 const DEV_MODE = false;
 
+
+let categories = null;
 // Definit la zone de mayotte et le zoom approprié
 const map = L.map('map').setView([-12.809645, 45.130741], 11);
 // Importation du fond de carte Jawgmap
@@ -15,11 +17,43 @@ L.tileLayer(
 /**
  * Requêtes les déchets à l'API
  */
+ function get_dechets() {
+     var debug = "";
+       $.ajax({
+           //L'URL de la requête
+           url: endpoint_url()+"geodechets",
+
+           //La méthode d'envoi (type de requête)
+           method: "GET",
+
+           //Le format de réponse attendu
+           dataType : "json",
+           // allow crossorigin
+           crossDomain: true,
+           success: function (response) {
+             console.debug(response);
+             new L.GeoJSON(response,{
+               pointToLayer:pointToLayer
+             }).addTo(map);
+             maj_tableau_bord(response);
+           },
+           error: function (xhr, ajaxOptions, thrownError) {
+             alert("Connection API impossible");
+             console.log(thrownError);
+           }
+         });
+
+ }
+
+
+/**
+ * Requêtes des infos sur les categories
+ */
 $(document).ready(function() {
   var debug = ""
     $.ajax({
         //L'URL de la requête
-        url: endpoint_url(),
+        url: endpoint_url()+"categories",
 
         //La méthode d'envoi (type de requête)
         method: "GET",
@@ -30,10 +64,12 @@ $(document).ready(function() {
         crossDomain: true,
         success: function (response) {
           console.debug(response);
-          new L.GeoJSON(response,{
-            pointToLayer:pointToLayer
-          }).addTo(map);
-          maj_tableau_bord(response);
+          categories = response;
+          categories["content"].forEach((elt, i) => {
+            li_category(elt["fullname"], elt['name']);
+          });
+          get_dechets();
+          // maj_tableau_bord(response);
         },
         error: function (xhr, ajaxOptions, thrownError) {
           alert("Connection API impossible");
@@ -43,6 +79,14 @@ $(document).ready(function() {
 
 });
 
+
+function li_category(category_name, category_id){
+  ul = document.getElementById('markers_categories');
+  li = document.createElement('li');
+  li.innerHTML = category_name;
+  li.id = category_id;
+  ul.appendChild(li);
+}
 /**
  * Ajoutes les icones des déchets (selon la catégorie)
  * @param {json} feature - Le déchet (feature geojson)
@@ -76,26 +120,21 @@ function pointToLayer(feature, latlng) {
  * @param {geojson} dechets - Les déchets à compter
  */
 function maj_tableau_bord(dechets) {
-  count_vhu = 0;
-  count_d3e = 0;
-  count_green = 0;
+  counts = {};
+  categories["content"].forEach((category, i) => {
+    counts[category["name"]]= 0;
+  });
 
   dechets["features"].forEach((dechet, i) => {
     categorie = dechet["properties"]["categorie"]
-    if ( categorie == CATEGORIES[4]) {
-      count_vhu += 1
-    }
-    if ( categorie == CATEGORIES[2]) {
-      count_d3e += 1
-    }
-    if ( categorie == CATEGORIES[3]) {
-      count_green += 1
-    }
-    // TODO: categorie : domestic ; plastic
+    counts[categorie] += 1;
   });
-    document.getElementById("count_d3e").innerHTML = count_d3e;
-    document.getElementById("count_vhu").innerHTML = count_vhu;
-    document.getElementById("count_green").innerHTML = count_green;
+Object.entries(counts).forEach((key, value, i) => {
+  console.log(key[0]);
+  document.getElementById(key[0]).innerHTML += " : " + key[1];
+
+});
+
 }
 
 /**
@@ -103,10 +142,10 @@ function maj_tableau_bord(dechets) {
  */
 function endpoint_url() {
   if (DEV_MODE) {
-    return "http://localhost:5000/geodechets"
+    return "http://localhost:5000/"
   }
   else {
-    return "http://51.68.90.188:5500/geodechets"
+    return "http://51.68.90.188:5500/"
   }
 }
 
