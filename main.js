@@ -66,7 +66,7 @@ $(document).ready(function() {
           console.debug(response);
           categories = response;
           categories["content"].forEach((elt, i) => {
-            li_category(elt["fullname"], elt['name']);
+            li_category('markers_categories', elt["fullname"], elt['name']);
           });
           get_dechets();
           // maj_tableau_bord(response);
@@ -80,8 +80,8 @@ $(document).ready(function() {
 });
 
 
-function li_category(category_name, category_id){
-  ul = document.getElementById('markers_categories');
+function li_category(ul_target_name, category_name, category_id){
+  ul = document.getElementById(ul_target_name);
   li = document.createElement('li');
   li.innerHTML = category_name;
   li.id = category_id;
@@ -120,20 +120,38 @@ function pointToLayer(feature, latlng) {
  * @param {geojson} dechets - Les déchets à compter
  */
 function maj_tableau_bord(dechets) {
-  counts = {};
+  counts_categories = {};
+  counts_communes = {};
   categories["content"].forEach((category, i) => {
-    counts[category["name"]]= 0;
+    counts_categories[category["name"]]= 0;
   });
 
   dechets["features"].forEach((dechet, i) => {
-    categorie = dechet["properties"]["categorie"]
-    counts[categorie] += 1;
+    // Catégories
+    categorie = dechet["properties"]["categorie"];
+    counts_categories[categorie] += 1;
+    // Commune
+    commune = dechet["properties"]["commune"];
+
+    if (!counts_communes[commune]) {
+        counts_communes[commune] = 1
+    }
+    else {
+       counts_communes[commune] += 1
+    }
+
   });
-Object.entries(counts).forEach((key, value, i) => {
-  console.log(key[0]);
+    console.log(counts_communes);
+  Object.entries(counts_communes).forEach((key, value) => {
+      id = 'marker-'+key[0];
+      text_affiche = key[0] + " : " + key[1];
+      li_category('markers_communes',text_affiche, id );
+  });
+Object.entries(counts_categories).forEach((key, value, i) => {
   document.getElementById(key[0]).innerHTML += " : " + key[1];
 
 });
+
 
 }
 
